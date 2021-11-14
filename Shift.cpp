@@ -1,5 +1,5 @@
 // @program: 01XA1-2 循环向左移k位的三种实现方式
-// @aythor: aslanwang
+// @author: aslanwang
 // @time: 2021-11-13
 
 #include <iostream>
