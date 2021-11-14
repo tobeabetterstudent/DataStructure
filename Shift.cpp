@@ -1,5 +1,5 @@
 // @program: 01XA1-2 循环向左移k位的三种实现方式
-// @aythor: aslanwang
+// @author: aslanwang
 // @time: 2021-11-13
 
 #include <iostream>
@@ -12,6 +12,7 @@ using namespace std;
 void ShiftByViolence(vector<int> &arr, int k)
 {
     int m = arr.size();
+    k = k % m;
     for (int i = 1; i <= k; i++)
     {
         int temp = arr[0];
@@ -39,6 +40,7 @@ int gcd(int a, int b)
 void ShiftByOneStep(vector<int> &arr, int k)
 {
     int m = arr.size();
+    k = k % m;
     int g = gcd(m, k);
     int temp = arr[0];
     int x;
@@ -58,6 +60,7 @@ void ShiftByOneStep(vector<int> &arr, int k)
 // 首先翻转前k个元素 再将剩下的那些元素做局部翻转 最后将整个数组翻转
 void ShiftByReverse(vector<int> &arr, int k)
 {
+    k = k % arr.size();
     reverse(arr.begin(), arr.begin() + k);
     reverse(arr.begin() + k, arr.end());
     reverse(arr.begin(), arr.end());
