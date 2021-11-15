@@ -22,13 +22,13 @@ public:
     }
 };
 
-// SUM方法 对vector求和并保存在全局变量
-// 使用函数指针绑定到SUM 从而被void MyVector::Traverse(void (*visit)(int))调用
+// Sum方法 对vector求和并保存在全局变量
+// 使用函数指针绑定到Sum 从而被void MyVector::Traverse(void (*visit)(int))调用
 int sum = 0;
 void Sum(int v)
 {
     sum += v;
-    cout << "SUM visited " << v << endl;
+    cout << "Sum visited " << v << endl;
 }
 
 void Print(int v)
