@@ -1,6 +1,7 @@
 // @program: 02C4 向Traverse函数传入一个函数参数 使用函数指针；函数对象；C++11 function函数对象
 // @author: aslanwang
 // @time: 2021-11-14
+
 #include <iostream>
 #include <vector>
 #include <functional>
