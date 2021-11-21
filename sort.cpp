@@ -28,7 +28,46 @@ void bubbleSort(vector<int> &arr, int low, int high)
     }
 }
 
-void TestBubbleSort_1()
+// merge 将A的两个有序区间[low,mid)和[mid,high)合并到数组B
+void merge(vector<int> &A, vector<int> &B, int low, int mid, int high)
+{
+    int i = low, j = mid;
+    int k = low;
+    while (i < mid && j < high)
+    {
+        B[k++] = A[i] < A[j] ? A[i++] : A[j++];
+    }
+    while (i < mid)
+    {
+        B[k++] = A[i++];
+    }
+    while (j < high)
+    {
+        B[k++] = A[j++];
+    }
+}
+
+// mergeSort 对arr1的[low,high)区间进行归并排序
+// 其中arr2是大小与arr1一致的额外空间
+void mergeSort(vector<int> &arr1, vector<int> &arr2, int low, int high)
+{
+    if (high - low < 2)
+    { // [low, high)只剩一个元素 这个子区间已经有序 可以直接返回
+        return;
+    }
+    // 将[low,high)分为两个子区间 分别mergeSort
+    int mid = (low + high) >> 1;
+    mergeSort(arr1, arr2, low, mid);
+    mergeSort(arr1, arr2, mid, high);
+    merge(arr1, arr2, low, mid, high);
+    // 将arr2中的数据复制回arr1
+    for (int i = low; i < high; i++)
+    {
+        arr1[i] = arr2[i];
+    }
+}
+
+void TestBubbleSort()
 {
     vector<int> data = {6, 7, 3, 2, 1, 5, 8, 7, 4};
     bubbleSort(data, 0, data.size());
@@ -39,7 +78,20 @@ void TestBubbleSort_1()
     cout << endl;
 }
 
+void TestMergeSort()
+{
+    vector<int> arr1 = {6, 7, -1, 45, 23, -9, 3, 2, 1, 5, 8, 7, 4};
+    vector<int> arr2(arr1.size());
+    mergeSort(arr1, arr2, 0, arr1.size());
+    for (auto &&v : arr1)
+    {
+        cout << v << '\t';
+    }
+    cout << endl;
+}
+
 int main()
 {
-    TestBubbleSort_1();
+    TestBubbleSort();
+    TestMergeSort();
 }
