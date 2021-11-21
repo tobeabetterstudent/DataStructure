@@ -10,6 +10,7 @@ using namespace std;
 // updateBinarySearch 新语义下的二分查找
 // 在[left,right)区间中查找target
 // 返回arr中不大于target的最后一个id 这样我们可以直接将target插入到id 而保持arr仍然有序
+// 也即是找到第一个大于target的元素index 返回index-1
 int updateBinarySearch(vector<int> &arr, int target, int left, int right)
 {
     while (left < right)
