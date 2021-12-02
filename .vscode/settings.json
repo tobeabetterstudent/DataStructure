@@ -1,0 +1,16 @@
+{
+    "C_Cpp.errorSquiggles": "Enabled",
+    "files.associations": {
+        "algorithm": "cpp",
+        "random": "cpp",
+        "iostream": "cpp",
+        "xstring": "cpp",
+        "map": "cpp",
+        "type_traits": "cpp",
+        "xutility": "cpp",
+        "vector": "cpp",
+        "list": "cpp",
+        "functional": "cpp",
+        "string": "cpp"
+    }
+}
