@@ -23,6 +23,7 @@ public:
 } visit;
 
 // Traverse_1 递归方式进行前序遍历
+// 注意到这实际上是一个尾递归 在回归过程中不需要任何操作
 void Traverse_1(Node *root)
 {
     if (!root)
