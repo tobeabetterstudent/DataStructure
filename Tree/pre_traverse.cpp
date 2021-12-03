@@ -34,7 +34,7 @@ void Traverse_1(Node *root)
     Traverse_1(root->right);
 }
 
-// Traverse_2 接住栈实现迭代式前序访问
+// Traverse_2 通过栈实现迭代式前序访问
 void Traverse_2(Node *root)
 {
     stack<Node *> st;
@@ -56,5 +56,31 @@ void Traverse_2(Node *root)
         {
             st.push(parent->left);
         }
+    }
+}
+
+// Traverse_2 通过更一般的形式去实现迭代式前序访问
+// 注意到对每个子树的前序遍历都是先一路访问所有的左节点 再从最下面返回去——前序遍历——它们的右子树
+void preTraverse_2(Node *root)
+{
+    stack<Node *> st;
+    while (1)
+    { // 对root子树 一路访问其所有的左孩子 并将右孩子压入栈
+        while (root)
+        {
+            visit(root->val);
+            if (root->right)
+            {
+                st.push(root->right);
+            }
+            root = root->left;
+        }
+        // 再从树底端返回去前序遍历右子树 对栈中的弹出的右子树又进入下一次循环
+        if (st.empty())
+        {
+            return;
+        }
+        root = st.top();
+        st.pop();
     }
 }
