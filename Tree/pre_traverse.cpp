@@ -62,7 +62,7 @@ void Traverse_2(Node *root)
 
 // Traverse_2 通过更一般的形式去实现迭代式前序访问
 // 注意到对每个子树的前序遍历都是先一路访问所有的左节点 再从最下面返回去——前序遍历——它们的右子树
-void preTraverse_2(Node *root)
+void Traverse_3(Node *root)
 {
     stack<Node *> st;
     while (1)
