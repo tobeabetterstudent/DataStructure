@@ -3,6 +3,10 @@
 // @time: 2021-12-13
 // @solve: 运行全局DFS  找到所有的连通分量  求解每个节点能连通的最多的点数 为了降低复杂度 我们必须使用邻接表建图
 // 使用静态链表头插法建立邻接表
+// 上面的思考在求解numOfConnect时采用自下向上的考虑 但遍历确实自上而下的 因此必须得写成递归算法
+// 但实际上我们将求解numOfConnect改为自上而下的 对一条路径 从起点到终点 经过的节点数是依次增加的 所以也可以认为对当前顶点u
+// 其一条边<u ,v>满足 numOfConnect[v] = Max(numOfConnect[v], numOfConnect[u]+1);
+// 下面这种思考方式实际上就相当于拓扑排序 找到每个入度为0的节点 考虑从他们开始形成不同的路径 最后在终点得到答案
 
 #include <cstdio>
 #include <cstring>
@@ -12,7 +16,6 @@
 int n, m; // n个村庄以及m条可行道路
 const int MAXSZ = 1e6 + 5;
 int Head[MAXSZ] = {0};         // Head[i]表示节点i出发的第一条边在Edges中的编号 边的编号设置为1~m
-bool visited[MAXSZ] = {false}; // visited[i]在DFS表示节点i是否被访问过
 int numOfConnect[MAXSZ] = {0}; // numOfConnect[i]表示节点i出发最大连通的节点个数 合法值>=1
 
 struct edge
@@ -22,28 +25,20 @@ struct edge
     int next = -1;
 } Edges[MAXSZ];
 
-// 从src开始做记忆化搜索 返回这个连通分量的节点个数
+// 从src开始做记忆化搜索 dfs(src)求解src所通向的不同路径中能连通的最大的节点数
 int dfs(int src)
 {
-    if (visited[src])
+    if (!numOfConnect[src])
     {
-        return numOfConnect[src];
-    }
-    visited[src] = true;
-    int ret = 1;
-    int cur = Head[src]; // 指向当前需要遍历的src的边编号 如果
-    while (cur)
-    {
-        if (!numOfConnect[Edges[cur].v])
-        {
-            dfs(Edges[cur].v);
+        int cur = Head[src];   // 指向当前需要遍历的src的边编号 如果
+        numOfConnect[src] = 1; // src至少连通了自己
+        while (cur)
+        { // 当前顶点的每条边都会去往不同的路径 因此我们统计不同的路径可以连通的最多的节点个数
+            numOfConnect[src] = Max(numOfConnect[src], dfs(Edges[cur].v) + 1);
+            cur = Edges[cur].next;
         }
-        // 对当前顶点的每条边都会去往不同的路径 因此我们统计每个路径可以连通的最多的节点个数
-        ret = Max(ret, numOfConnect[Edges[cur].v] + 1);
-        cur = Edges[cur].next;
     }
-    numOfConnect[src] = ret;
-    return ret;
+    return numOfConnect[src];
 }
 
 // DFS 全局深搜
@@ -52,7 +47,7 @@ int DFS()
     int ans = 0;
     for (int i = 1; i <= n; i++)
     {
-        if (!visited[i])
+        if (!numOfConnect[i])
         {
             ans = Max(ans, dfs(i));
         }
