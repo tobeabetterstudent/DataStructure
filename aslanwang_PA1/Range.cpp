@@ -46,7 +46,7 @@ void quickSort(int left, int right)
 }
 
 // binarySearchLE 在[l,r)区间中找到points中最后一个不大于target的下标
-int binarySearchGE(int target)
+int binarySearchLE(int target)
 {
     int l = 0, r = n;
     while (l < r)
@@ -77,6 +77,6 @@ int main()
     {
         scanf("%d%d", &l, &r);
         // 实际上查找最后一个小于等于r的位置 和最后一个小于l的位置
-        printf("%d\n", binarySearchGE(r) - binarySearchGE(l - 1));
+        printf("%d\n", binarySearchLE(r) - binarySearchLE(l - 1));
     }
 }

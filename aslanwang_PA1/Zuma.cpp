@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int n = 0, k = 0; // n从操作 每次将珠子插入到k
+int n = 0, k = 0; // n次操作 每次将珠子插入到k
 char newBeard;    // 新珠子的颜色
 const int MAXSZ = 1e5;
 string originalSequence;
